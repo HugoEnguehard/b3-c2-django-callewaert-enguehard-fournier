@@ -14,10 +14,12 @@ class Ecole(models.Model):
         return self.ecole_nom
     
 class User(models.Model):
-    user_nom = models.CharField(max_length=64)
-    user_prenom = models.CharField(max_length=64)
-    user_date_naissance = models.DateTimeField('Date de naissance')
-    user_type_user = models.IntegerField()
+    user_nom = models.CharField(max_length=64, null=True)
+    user_prenom = models.CharField(max_length=64, null=True)
+    user_email = models.CharField(max_length=100, null=True)
+    user_date_naissance = models.DateTimeField('Date de naissance', null=True)
+    user_password = models.CharField(max_length=100, null=True)
+    user_type_user = models.IntegerField(null=True)
     user_id_ecole = models.ForeignKey(Ecole, null=True, blank=True, on_delete=models.CASCADE)
     
     def __str__(self):

@@ -25,6 +25,12 @@
             color: white;
             cursor: pointer;
         }
+        .error{
+            color: red;
+        }
+        .success{
+            color: green;
+        }
     </style>
 </head> 
 <body>
@@ -39,16 +45,13 @@
             {% endif %}
             
               {% if error%}
-                <span> {{error}} </span>
+                <span class="error"> {{error}} </span>
               {% endif %}
-            {% comment %} {% for cour in cours %}
-                <form action="">
-                    <input type="hidden" value="{{cour.id}}" name="cour">
-                    <input type="hidden" value="{{cour.id}}" name="ecole">
-                    <span>{{cour.cour_nom}}</span> 
-                    <button>Réserver</button>
-                </form>
-            {% endfor %} {% endcomment %}
+
+              {% if success %}
+              <span class="success"> {{success}} </span>
+            {% endif %}
+          
 
         </div>
    

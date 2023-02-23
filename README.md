@@ -22,6 +22,7 @@ password : password
 - users => 
     - nom => string(64)
     - prenom => string(64)
+    - email => string(256)
     - date_naissance => date
     - type_user => int(1)
         - 0 : admin 

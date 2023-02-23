@@ -14,5 +14,8 @@
         {{ form.as_p }}
         <input type="submit" value="Se connecter">
     </form>
+    {% block error_message %}
+        {% if error_message %}<p>{{ error_message }}</p>{% endif %}
+    {% endblock %}
 </body>
 </html>

@@ -14,14 +14,25 @@ class Ecole(models.Model):
         return self.ecole_nom
     
 class User(models.Model):
-    user_nom = models.CharField(max_length=64)
-    user_prenom = models.CharField(max_length=64)
-    user_date_naissance = models.DateTimeField('Date de naissance')
-    user_type_user = models.IntegerField()
+    user_nom = models.CharField(max_length=64, null=True)
+    user_prenom = models.CharField(max_length=64, null=True)
+    user_email = models.CharField(max_length=100, null=True)
+    user_date_naissance = models.DateTimeField('Date de naissance', null=True)
+    user_password = models.CharField(max_length=100, null=True)
+    user_type_user = models.IntegerField(null=True)
     user_id_ecole = models.ForeignKey(Ecole, null=True, blank=True, on_delete=models.CASCADE)
     
     def __str__(self):
         return f"{self.user_prenom} {self.user_nom} {self.user_id_ecole}"
+    
+    def getAllData(self):
+        return {
+            "user_nom" : self.user_nom,
+            "user_prenom" : self.user_prenom,
+            "user_email" : self.user_email,
+            "user_type_user" : self.user_type_user,
+            "user_id_ecole" : self.user_id_ecole,
+        }
     
 class Cour(models.Model):
     cour_nom = models.CharField(max_length=128)

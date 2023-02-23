@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Gestionnaire - Login</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'login/style.css' %}">
+</head>
+<body>
+    <h1>Authentification</h1>
+    <form action method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Se connecter">
+    </form>
+    {% block error_message %}
+        {% if error_message %}<p>{{ error_message }}</p>{% endif %}
+    {% endblock %}
+</body>
+</html>

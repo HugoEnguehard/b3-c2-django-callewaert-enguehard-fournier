@@ -62,8 +62,10 @@ password : password
 
 - École => 
     - USER 1 : Liste des cours réservables
+    - USER 2 : Liste des cours qui ont été réservés
 
 - Réservations =>
     - USER 1 : Liste de ses réservations 
         - Possibilité de consulter en détail une réservation
         - Possibilité de supprimer une réservation
+        

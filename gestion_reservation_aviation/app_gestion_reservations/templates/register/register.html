@@ -2,21 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Gestionnaire - Login</title>
+    <title>Gestionnaire - Register</title>
     {% load static %}
 
-    <link rel="stylesheet" href="{% static 'login/style.css' %}">
+    <link rel="stylesheet" href="{% static 'register/style.css' %}">
 </head>
 <body>
-    <h1>Authentification</h1>
+    <h1>Creater account</h1>
     <form action method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Se connecter">
+        <input type="submit" value="Créer un compte">
     </form>
     {% block error_message %}
         {% if error_message %}<p>{{ error_message }}</p>{% endif %}
     {% endblock %}
-    <a href="/register">
 </body>
 </html>

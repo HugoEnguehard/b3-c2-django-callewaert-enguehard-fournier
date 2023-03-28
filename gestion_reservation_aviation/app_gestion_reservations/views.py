@@ -135,7 +135,7 @@ def register(request):
             hashedPassword =  bcrypt.hashpw(form.cleaned_data["user_password"].encode('utf-8'), bcrypt.gensalt())
             
             # Création de l'objet User que l'on va ajouter dans la base de données avec le mdp hashé
-            new_user = User(user_nom=form.cleaned_data["user_nom"], user_prenom= form.cleaned_data["user_prenom"], user_email= form.cleaned_data["user_email"].upper(), user_date_naissance= form.cleaned_data["user_date_naissance"], user_password= hashedPassword, user_type_user= form.cleaned_data["user_type_user"], user_id_ecole= form.cleaned_data["user_id_ecole"])
+            new_user = User(user_nom=form.cleaned_data["user_nom"], user_prenom= form.cleaned_data["user_prenom"], user_email= form.cleaned_data["user_email"].upper(), user_date_naissance= form.cleaned_data["user_date_naissance"], user_password= hashedPassword.decode('utf-8'), user_type_user= form.cleaned_data["user_type_user"], user_id_ecole= form.cleaned_data["user_id_ecole"])
             
             # Sauvegarde du User dans la base de données
             new_user.save()

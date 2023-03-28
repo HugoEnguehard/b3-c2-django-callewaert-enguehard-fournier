@@ -87,7 +87,7 @@ def login(request):
             if User.objects.filter(user_email = form.cleaned_data['user_email'].upper()).exists():
                 # We check if the password correspond to the hashed one of this user
                 user = User.objects.filter(user_email = form.cleaned_data['user_email'].upper())[0]
-                if(bcrypt.checkpw(form.cleaned_data['user_password'].encode('utf-8'), user.user_password)):
+                if(bcrypt.checkpw(form.cleaned_data['user_password'].encode('utf-8'), user.user_password.encode('utf-8'))):
                     # The user is connected
                     # We prepare the redirection and we create a cookie so other pages can know if the user is logged in
                     response = HttpResponseRedirect('/app_gestion_reservations/accueil/')

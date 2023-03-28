@@ -30,7 +30,7 @@ class User(models.Model):
     user_id_ecole = models.ForeignKey(Ecole, null=True, blank=True, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.user_prenom} {self.user_nom} {self.user_id_ecole}"
+        return f"{self.user_email} {self.user_id_ecole}"
     
     def getAllData(self):
         return {

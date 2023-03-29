@@ -32,10 +32,10 @@ def login(request):
                     return response
                 else: 
                     print("PASSWORD INCORRECT")
-                    return render(request, 'login/login.html', {'form': form, 'error_message': "Mot de passe incorrecte" })
+                    return render(request, 'login/login.html', {'form': form, 'error_message': "Incorrect password" })
             else:
                 print("NO SUCH USER")
-                return render(request, 'login/login.html', {'form': form, 'error_message': "Ce compte n'existe pas" })
+                return render(request, 'login/login.html', {'form': form, 'error_message': "This account doesn't exist" })
     else: 
         # If the form method is not "POST" for some reason
         form = LoginForm

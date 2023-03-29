@@ -8,15 +8,21 @@
     <link rel="stylesheet" href="{% static 'login/style.css' %}">
 </head>
 <body>
-    <h1>Authentification</h1>
-    <form action method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Log in">
-    </form>
-    {% block error_message %}
-        {% if error_message %}<p>{{ error_message }}</p>{% endif %}
-    {% endblock %}
-    <p>You do not have an account ? <a href="/app_gestion_reservations/register">Register<a> here!
+    <header>
+        <h1>Authentification</h1>
+    </header>
+    <main>
+        <form action method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input id="submit" type="submit" value="Log in">
+        </form>
+        <div id="texts">
+            {% block error_message %}
+                {% if error_message %}<p id="error">{{ error_message }}</p>{% endif %}
+            {% endblock %}
+            <p>You do not have an account ? <a href="/app_gestion_reservations/register">Register<a> here!
+        </div>
+    </main>
 </body>
 </html>

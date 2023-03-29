@@ -8,14 +8,20 @@
     <link rel="stylesheet" href="{% static 'register/style.css' %}">
 </head>
 <body>
-    <h1>Creater account</h1>
+    <header>
+        <h1>Create account</h1>
+    </header>
+    <p id="date-information">/!\ The birth date must be american format like this : MM/DD/YYYY or MM/DD/YYYY</p>
     <form action method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Créer un compte">
+        <input id="submit" type="submit" value="Sign in">
     </form>
-    {% block error_message %}
-        {% if error_message %}<p>{{ error_message }}</p>{% endif %}
-    {% endblock %}
+    <div id="texts">
+        {% block error_message %}
+            {% if error_message %}<p id="error">{{ error_message }} !</p>{% endif %}
+        {% endblock %}
+        <p>You already have an account ? <a href="app_gestion_reservations/">Log in</a> here !</p>
+    </div>
 </body>
 </html>

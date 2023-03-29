@@ -59,18 +59,18 @@ def register(request):
             # print(form.cleaned_data)
             if(form.cleaned_data["user_password"] != form.cleaned_data["user_confirm_password"]):
                 print("PASSWORD INCORRECT")
-                return render(request, 'login/login.html', {'form': form, 'error_message': "Les mots de passe ne sont pas identiques" })
+                return render(request, 'register/register.html', {'form': form, 'error_message': "Les mots de passe ne sont pas identiques" })
             if(form.cleaned_data["user_type_user"] == "2" and form.cleaned_data["user_id_ecole"] is None):
                 print("SCHOOL USER MUST BE ASSOCIATED WITH A SCHOOL")
-                return render(request, 'login/login.html', {'form': form, 'error_message': "Un utilisateur de type \"École\" doit être associé à une école" })
+                return render(request, 'register/register.html', {'form': form, 'error_message': "Un utilisateur de type \"École\" doit être associé à une école" })
             if(form.cleaned_data["user_type_user"] == "1" and form.cleaned_data["user_id_ecole"] is not None):
                 print("STUDENT USER MUST NOT BE ASSOCIATED WITH A SCHOOL")
-                return render(request, 'login/login.html', {'form': form, 'error_message': "Un utilisateur de type \"Élève\" ne doit pas être associé à une école" })
+                return render(request, 'register/register.html', {'form': form, 'error_message': "Un utilisateur de type \"Élève\" ne doit pas être associé à une école" })
             
             # Vérifier que le USER n'existe pas (via email)
             if User.objects.filter(user_email = form.cleaned_data['user_email'].upper()).exists():
                 print("USER ALREADY EXISTS")
-                return render(request, 'login/login.html', {'form': form, 'error_message': "Cet adresse email est déjà associée à un compte" })
+                return render(request, 'register/register.html', {'form': form, 'error_message': "Cet adresse email est déjà associée à un compte" })
             
             # Hashage du mot de passe
             hashedPassword =  bcrypt.hashpw(form.cleaned_data["user_password"].encode('utf-8'), bcrypt.gensalt())

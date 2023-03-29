@@ -38,7 +38,7 @@ class User(models.Model):
             "user_prenom" : self.user_prenom,
             "user_email" : self.user_email,
             "user_type_user" : self.user_type_user,
-            "user_id_ecole" : self.user_id_ecole,
+            "user_id_ecole" :   self.user_id_ecole.ecole_id if self.user_id_ecole else self.user_id_ecole,
         }
     
 class Cour(models.Model):

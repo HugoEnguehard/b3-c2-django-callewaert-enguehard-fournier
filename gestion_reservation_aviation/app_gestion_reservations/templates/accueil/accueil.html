@@ -19,31 +19,34 @@
       </nav>
     </header>
     <main>
-      {% typeUser %}
-      <section>
-        {% for ecole in ecoles %}
-            <div class="school-info">
-              <a href="/app_gestion_reservations/school/{{ecole.id}}" class="school-info-a">
-                <h2>{{ ecole.ecole_nom }}</h2>
-                <p>{{ ecole.ecole_adresse }}</p>
-                <p>{{ ecole.ecole_ville }}, {{ ecole.ecole_cp }}</p>
-              </a>
-            </div>
-        {% endfor %}
-      </section>
-      <section>
-        {% for cour in cours %}
-            <div class="school-info">
-              <a href="/app_gestion_reservations/reservation/{{cour.id}}" class="school-info-a">
-                <h2>{{ cour.cour_nom }}</h2>
-                <div>
-                  <p>Du {{cour.cour_date_debut|date:"d/m/Y"}}</p>
-                  <p>au {{cour.cour_date_fin|date:"d/m/Y"}}</p>
-                </div>
-              </a>
-            </div>
-        {% endfor %}
-      </section>
+      {# typeUser #}
+      {% if typeUser == 1 %}
+        <section>
+          {% for ecole in ecoles %}
+              <div class="school-info">
+                <a href="/app_gestion_reservations/school/{{ecole.id}}" class="school-info-a">
+                  <h2>{{ ecole.ecole_nom }}</h2>
+                  <p>{{ ecole.ecole_adresse }}</p>
+                  <p>{{ ecole.ecole_ville }}, {{ ecole.ecole_cp }}</p>
+                </a>
+              </div>
+          {% endfor %}
+        </section>
+      {% else %}
+        <section>
+          {% for cour in cours %}
+              <div class="school-info">
+                <a href="/app_gestion_reservations/reservation/{{cour.id}}" class="school-info-a">
+                  <h2>{{ cour.cour_nom }}</h2>
+                  <div>
+                    <p>Du {{cour.cour_date_debut|date:"d/m/Y"}}</p>
+                    <p>au {{cour.cour_date_fin|date:"d/m/Y"}}</p>
+                  </div>
+                </a>
+              </div>
+          {% endfor %}
+        </section>
+      {% endif %}
     </main>
     <footer>
       <p>Droits d'auteur © 2023 - Mon entreprise</p>

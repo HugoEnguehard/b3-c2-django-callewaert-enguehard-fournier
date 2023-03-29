@@ -176,7 +176,7 @@ def accueil(request):
     cours = Cour.objects.all()
     if getCookieData(request) is not None:
         typeUser = getCookieData(request)["user_type_user"]
-        return render(request, typeUser, 'accueil/accueil.html', {'ecoles': ecoles, 'cours': cours })
+        return render(request, 'accueil/accueil.html', {'ecoles': ecoles, 'cours': cours, 'typeUser': typeUser })
         # if(getCookieData(request)["user_type_user"] == 1):
     else: 
         return HttpResponseRedirect('/app_gestion_reservations/')
@@ -188,7 +188,11 @@ def reservation(request):
     cours = Cour.objects.all()
       # We check if the user is already connected
     if getCookieData(request) is not None:
-        return render(request, 'reservation/reservation.html', {'reservations': reservations, 'cours': cours, 'ecoles': ecoles})
+        typeUser = getCookieData(request)["user_type_user"]
+        if typeUser == 1:
+            return render(request, 'reservation/reservation.html', {'reservations': reservations, 'cours': cours, 'ecoles': ecoles })
+        else:
+            return HttpResponseRedirect('/app_gestion_reservations/')
         # if(getCookieData(request)["user_type_user"] == 1):
     else: 
         return HttpResponseRedirect('/app_gestion_reservations/')

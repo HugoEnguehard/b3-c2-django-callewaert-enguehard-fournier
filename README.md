@@ -2,7 +2,13 @@
 Application de gestion des réservations pour les écoles de pilotage.
 
 # Start project 
+cd b3-c2-django-callewaert-enguehard-fournier/gestion_reservation_aviation
 python ./manage.py runserver
+
+# Accèder à l'application
+Dans un navigateur entrer l'url : http://127.0.0.1:8000/app_gestion_reservations/
+
+Pour accèder à la partie admin : http://127.0.0.1:8000/admin/
 
 # SUPERUSER login/pswd
 login : admin
@@ -62,8 +68,10 @@ password : password
 
 - École => 
     - USER 1 : Liste des cours réservables
+    - USER 2 : Liste des cours qui ont été réservés
 
 - Réservations =>
     - USER 1 : Liste de ses réservations 
         - Possibilité de consulter en détail une réservation
         - Possibilité de supprimer une réservation
+        

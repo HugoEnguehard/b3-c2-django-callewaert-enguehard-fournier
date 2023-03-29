@@ -1,0 +1,175 @@
+/* Styles pour le corps de la page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles pour l'en-tête de la page */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav li {
+    margin-right: 20px;
+}
+
+header nav li:last-child {
+    margin-right: 0;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+header nav a:hover {
+    color: #f00;
+}
+
+
+/* Styles pour le contenu principal de la page */
+main {
+    padding-top: 75px;
+    padding-bottom: 20px;
+    padding-left: 200px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+.svg-icon {
+    width: 2em;
+    height: 2em;
+}
+
+.svg-icon:hover {
+    cursor: pointer;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: #4691f6;
+}
+
+.svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
+
+.reservation {
+    background-color: #f2f2f2;
+    color: black;
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: 400px;
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.header-reservation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sup-reservation {
+    background-color: #d54a4a;
+    width: auto;
+    padding: 8px;
+    border-radius: 5px;
+    border: solid 1px #ddd;
+}
+
+.sup-reservation:hover {
+    background-color: #ba4141;
+}
+
+.information-cours {
+    display: none;
+}
+
+.pop-up-display{
+    display: none;
+}
+
+.pop-up{
+    z-index: 9999; /* met la div en premier plan */
+    background-color: rgba(0, 0, 0, 0.4); /* ajoute un fond gris clair semi-transparent */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.pop-up-window{
+    background-color: whitesmoke;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+.pop-up-button-yn{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button-yn{
+    width: 50px;
+    height: 20px;
+    background-color: #4691f6;
+    border: none;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.button-yn:hover{
+    background-color: #557eb4;
+}
+
+.button-x{
+    float: right;
+}

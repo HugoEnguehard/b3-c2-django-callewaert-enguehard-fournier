@@ -5,6 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 class Ecole(models.Model):
+    ecole_id = models.IntegerField(primary_key=True)
     ecole_nom = models.CharField(max_length=128)
     ecole_adresse = models.CharField(max_length=128)
     ecole_ville = models.CharField(max_length=128)
@@ -12,6 +13,12 @@ class Ecole(models.Model):
     
     def __str__(self):
         return self.ecole_nom
+    
+    def getDataForForm(self):
+        return {
+            "id_ecole" : self.ecole_id,
+            "nom_ecole" : self.ecole_nom,
+        }
     
 class User(models.Model):
     user_nom = models.CharField(max_length=64, null=True)
@@ -23,7 +30,7 @@ class User(models.Model):
     user_id_ecole = models.ForeignKey(Ecole, null=True, blank=True, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.user_prenom} {self.user_nom} {self.user_id_ecole}"
+        return f"{self.user_email} {self.user_id_ecole}"
     
     def getAllData(self):
         return {

@@ -3,9 +3,11 @@ from django.http  import HttpResponse, HttpResponseRedirect
 from .models import *
 from .forms import LoginForm
 from django import forms
+import ast
 
 # Create your views here.
 def index(request):
+    print('Hello')
     return render('login')
 
 def login(request):
@@ -53,7 +55,7 @@ def setCookie(res, user_data):
 def getCookieData(req):
     # Get a cookie with user infos
     if "logged_user" in req.COOKIES:
-        return req.COOKIES["logged_user"]
+        return  ast.literal_eval(req.COOKIES["logged_user"])
     else: 
         return None
 
@@ -62,10 +64,22 @@ def getUserFromEmail(email):
 def accueil(request):
     ecoles = Ecole.objects.all()
     cours = Cour.objects.all()
-    return render(request, 'accueil/accueil.html', {'ecoles': ecoles, 'cours': cours })
+    if getCookieData(request) is not None:
+        typeUser = getCookieData(request)["user_type_user"]
+        return render(request, typeUser, 'accueil/accueil.html', {'ecoles': ecoles, 'cours': cours })
+        # if(getCookieData(request)["user_type_user"] == 1):
+    else: 
+        return HttpResponseRedirect('/app_gestion_reservations/')
+       
 
 def reservation(request):
     reservations = Reservation.objects.all()
     ecoles = Ecole.objects.all()
     cours = Cour.objects.all()
-    return render(request, 'reservation/reservation.html', {'reservations': reservations, 'cours': cours, 'ecoles': ecoles})
+      # We check if the user is already connected
+    if getCookieData(request) is not None:
+        return render(request, 'reservation/reservation.html', {'reservations': reservations, 'cours': cours, 'ecoles': ecoles})
+        # if(getCookieData(request)["user_type_user"] == 1):
+    else: 
+        return HttpResponseRedirect('/app_gestion_reservations/')
+        

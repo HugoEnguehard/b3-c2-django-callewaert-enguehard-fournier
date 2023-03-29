@@ -9,7 +9,17 @@
     <link rel="stylesheet" href="{% static 'school/style.css' %}">
 </head> 
 <body>
-    <H1>Liste des cours de l'école {{school_data.ecole_nom}}</H1>
+    <header>
+      <h1>GESTAP</h1>
+      <nav>
+        <ul>
+            <li><a href="/app_gestion_reservations/accueil">Accueil</a></li>
+            <li><a href="/app_gestion_reservations/reservation">Réservation</a></li>
+        </ul>
+      </nav>
+    </header>
+   <main>
+        <H1> Bienvenue sur la page de détail de l'école {{school_data.ecole_nom}}</H1>
         <div class="container">
             {%if form %}
                 <form method="post" novalidate>
@@ -19,33 +29,34 @@
                 </form>
             {% endif %}
             
-              {% if error%}
+            {% if error%}
                 <span class="error"> {{error}} </span>
-              {% endif %}
+            {% endif %}
 
-              {% if success %}
-              <span class="success"> {{success}} </span>
+            {% if success %}
+            <span class="success"> {{success}} </span>
             {% endif %}
         </div>
 
-    {% if reservations %}
-        <H1>Liste des réservations :</H1>
-        <ul class="reservation-list">
+        {% if reservations %}
+            <H1>Liste des réservations :</H1>
+            <ul class="reservation-list">
 
-            {% for r in reservations %}
-            <li class="reservation-item">
-                <span class="reservation-item-number">Réservation n°{{r.reservation_id}}</span>
-                <span><b>Cours :</b> {{r.course_name}}</span>
-                <span><b>Réservé par</b> {{r.user_name}}</span>
-                <span>Horaire cours : {{r.start_course_date}} - {{r.end_course_date}}</span>
-                <span>Date de réservation du cours : {{r.reservation_date}}</span> 
-            </li>
-            {% endfor %}
-        </ul>    
+                {% for r in reservations %}
+                <li class="reservation-item">
+                    <span class="reservation-item-number">Réservation n°{{r.reservation_id}}</span>
+                    <span><b>Cours :</b> {{r.course_name}}</span>
+                    <span><b>Réservé par</b> {{r.user_name}}</span>
+                    <span>Horaire cours : {{r.start_course_date}} - {{r.end_course_date}}</span>
+                    <span>Date de réservation du cours : {{r.reservation_date}}</span> 
+                </li>
+                {% endfor %}
+            </ul>    
 
-    {% endif %}
-
-    
-   
+        {% endif %}
+   </main>
+    <footer>
+        <p>Droits d'auteur © 2023 - Mon entreprise</p>  
+    </footer>
 </body>
 </html>

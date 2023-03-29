@@ -12,10 +12,11 @@
     <form action method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Se connecter">
+        <input type="submit" value="Log in">
     </form>
     {% block error_message %}
         {% if error_message %}<p>{{ error_message }}</p>{% endif %}
     {% endblock %}
+    <p>You do not have an account ? <a href="/app_gestion_reservations/register">Register<a> here!
 </body>
 </html>

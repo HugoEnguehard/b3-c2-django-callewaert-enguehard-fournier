@@ -13,14 +13,15 @@ def index(request):
 
 def school(request, id):
     cookieValue = getCookieData(request)
-
     pathToSchoolFile = "school/school.html"
+
     if cookieValue is None:
         return HttpResponseRedirect('/app_gestion_reservations/')
 
-    if Ecole.objects.filter(id=id).exists() == False:
+
+    if Ecole.objects.filter(ecole_id=id).exists() == False:
         return render(request, pathToSchoolFile, {'error':"Aucune école n'a cet id"}) 
-    school = Ecole.objects.filter(id=id)[0]
+    school = Ecole.objects.filter(ecole_id=id)[0]
 
     if cookieValue['user_email'] : 
         if User.objects.filter(user_email=cookieValue['user_email']).exists() == False:
@@ -40,7 +41,6 @@ def school(request, id):
         cour_choices.append((c.id, c.cour_nom))
 
     reservations = []
-    print("HEEEEERE", user.user_type_user)
     if user.user_type_user == 2:
         for c in cours:
             if Reservation.objects.filter(id_cour_id=c.id).exists() == False:
@@ -51,11 +51,10 @@ def school(request, id):
 
     if len(cour_choices) <= 0:
         return render(request, pathToSchoolFile, {'error':"Aucun cours pour cette école ou vous vous êtes déjà inscrit à tous les cours", "school_data":school, "reservations":reservations})
-
     if request.method == ('POST'):
-
         form = ReservationForm(request.POST, cour_choices=cour_choices,user_id=user.id)
-
+        if user.user_type_user == 2 and user.user_id_ecole.ecole_id == id: 
+            return  render(request, pathToSchoolFile, {'error':"Vous ne pouvez pas réserver un cours de votre écolé", "school_data":school, "reservations":reservations})
         if form.is_valid():
             cour = Cour.objects.get(id=form.cleaned_data['id_cour'])
             if Reservation.objects.filter(id_cour=cour.id, id_user=user.id).exists():
@@ -69,6 +68,8 @@ def school(request, id):
             )
         return render(request, pathToSchoolFile, {'success':"Réservation réalisée avec succès","school_data":school, "reservations":reservations})
     else:
+        if user.user_type_user == 2 and user.user_id_ecole.ecole_id == id: 
+            return render(request, pathToSchoolFile, {"school_data":school, "reservations":reservations})
         form = ReservationForm(cour_choices=cour_choices, user_id=user.id)  
         return render(request, pathToSchoolFile, {'form': form, "school_data":school, "reservations":reservations})
     

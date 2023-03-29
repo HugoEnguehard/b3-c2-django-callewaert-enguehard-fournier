@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'school/style.css' %}">
+</head> 
+<body>
+    <H1>Liste des cours de l'école {{school_data.ecole_nom}}</H1>
+        <div class="container">
+            {%if form %}
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Submit</button>
+                </form>
+            {% endif %}
+            
+              {% if error%}
+                <span class="error"> {{error}} </span>
+              {% endif %}
+
+              {% if success %}
+              <span class="success"> {{success}} </span>
+            {% endif %}
+        </div>
+
+    {% if reservations %}
+        <H1>Liste des réservations :</H1>
+        <ul class="reservation-list">
+
+            {% for r in reservations %}
+            <li class="reservation-item">
+                <span class="reservation-item-number">Réservation n°{{r.reservation_id}}</span>
+                <span><b>Cours :</b> {{r.course_name}}</span>
+                <span><b>Réservé par</b> {{r.user_name}}</span>
+                <span>Horaire cours : {{r.start_course_date}} - {{r.end_course_date}}</span>
+                <span>Date de réservation du cours : {{r.reservation_date}}</span> 
+            </li>
+            {% endfor %}
+        </ul>    
+
+    {% endif %}
+
+    
+   
+</body>
+</html>

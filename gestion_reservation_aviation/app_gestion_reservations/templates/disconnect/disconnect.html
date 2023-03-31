@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Gestionnaire - Login</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'disconnect/style.css' %}">
+
+</head>
+<body>
+  <header></header>
+    <main>
+      <div id="timer">Déconnexion réussie, vous allez être redirigé dans : <span id="countdown">5</span>s</div>
+    </main>
+    <footer>
+        <p>Droits d'auteur © 2023 - Mon entreprise</p>
+    </footer>
+    <script>
+        const countdown = document.getElementById('countdown');
+        let secondsLeft = 4;
+        let countdownInterval = setInterval(() => {
+          if (secondsLeft <= 0) {
+            clearInterval(countdownInterval);
+            window.location.href = '/app_gestion_reservations/'; // Remplacez par l'URL de votre page de redirection
+          } else {
+            countdown.innerText = secondsLeft;
+            secondsLeft--;
+          }
+        }, 1000);
+    </script>
+</body>
+</html>

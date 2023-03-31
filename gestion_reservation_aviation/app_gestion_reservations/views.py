@@ -5,6 +5,7 @@ from .forms import LoginForm, RegisterForm, ReservationForm
 from django import forms
 import ast
 import bcrypt
+from django.shortcuts import redirect
 
 # Create your views here.
 def index(request):
@@ -154,8 +155,13 @@ def register(request):
     return render(request, 'register/register.html', {'form': form})
     
     
-    
-    
+def disconnect(request):
+    if getCookieData(request) is None:
+        return HttpResponseRedirect('/app_gestion_reservations/')
+    response = render(request, 'disconnect/disconnect.html')
+    response.delete_cookie("logged_user")
+    return response
+
 
 def setCookie(res, user_data):
     # Create a cookie with user infos

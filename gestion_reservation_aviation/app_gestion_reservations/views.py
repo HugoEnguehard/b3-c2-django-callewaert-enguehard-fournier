@@ -10,7 +10,7 @@ def index(request):
     print('Hello')
     return render('login')
 
-def school(request, id):
+def school(request, ecole_id):
     cookieValue = getCookieData(request)
     pathToSchoolFile = "school/school.html"
 
@@ -18,9 +18,9 @@ def school(request, id):
         return HttpResponseRedirect('/app_gestion_reservations/')
 
 
-    if Ecole.objects.filter(ecole_id=id).exists() == False:
+    if Ecole.objects.filter(ecole_id=ecole_id).exists() == False:
         return render(request, pathToSchoolFile, {'error':"Aucune école n'a cet id"}) 
-    school = Ecole.objects.filter(ecole_id=id)[0]
+    school = Ecole.objects.filter(ecole_id=ecole_id)[0]
 
     if cookieValue['user_email'] : 
         if User.objects.filter(user_email=cookieValue['user_email']).exists() == False:
@@ -28,10 +28,10 @@ def school(request, id):
 
     user = User.objects.filter(user_email=cookieValue['user_email'])[0]
     
-    if Cour.objects.filter(id_ecole_id=id).exists() == False:
+    if Cour.objects.filter(id_ecole_id=ecole_id).exists() == False:
         return render(request, pathToSchoolFile, {'error':"Cette école n'a aucun cours"}) 
     
-    cours = Cour.objects.filter(id_ecole_id=id)
+    cours = Cour.objects.filter(id_ecole_id=ecole_id)
     
     cour_choices = []
     for c in cours:
@@ -52,10 +52,10 @@ def school(request, id):
         return render(request, pathToSchoolFile, {'error':"Aucun cours pour cette école ou vous vous êtes déjà inscrit à tous les cours", "school_data":school, "reservations":reservations})
     if request.method == ('POST'):
         form = ReservationForm(request.POST, cour_choices=cour_choices,user_id=user.id)
-        if user.user_type_user == 2 and user.user_id_ecole.ecole_id == id: 
+        if user.user_type_user == 2 and user.user_id_ecole.ecole_id == ecole_id: 
             return  render(request, pathToSchoolFile, {'error':"Vous ne pouvez pas réserver un cours de votre écolé", "school_data":school, "reservations":reservations})
         if form.is_valid():
-            cour = Cour.objects.get(id=form.cleaned_data['id_cour'])
+            cour = Cour.objects.get(ecole_id=form.cleaned_data['id_cour'])
             if Reservation.objects.filter(id_cour=cour.id, id_user=user.id).exists():
                 form2 = ReservationForm(cour_choices=cour_choices, user_id=user.id)  
                 return render(request, pathToSchoolFile, {'form':form2,'error':"Vous ne pouvez pas faire deux fois la meme réservation", "school_data":school, "reservations":reservations})
@@ -67,7 +67,7 @@ def school(request, id):
             )
         return render(request, pathToSchoolFile, {'success':"Réservation réalisée avec succès","school_data":school, "reservations":reservations})
     else:
-        if user.user_type_user == 2 and user.user_id_ecole.ecole_id == id: 
+        if user.user_type_user == 2 and user.user_id_ecole.ecole_id == ecole_id: 
             return render(request, pathToSchoolFile, {"school_data":school, "reservations":reservations})
         form = ReservationForm(cour_choices=cour_choices, user_id=user.id)  
         return render(request, pathToSchoolFile, {'form': form, "school_data":school, "reservations":reservations})
@@ -181,7 +181,8 @@ def accueil(request):
     cours = Cour.objects.all()
     if getCookieData(request) is not None:
         typeUser = getCookieData(request)["user_type_user"]
-        return render(request, 'accueil/accueil.html', {'ecoles': ecoles, 'cours': cours, 'typeUser': typeUser })
+        idUser = getCookieData(request)["user_id_ecole"]
+        return render(request, 'accueil/accueil.html', {'ecoles': ecoles, 'cours': cours, 'typeUser': typeUser, 'idUser' : idUser })
         # if(getCookieData(request)["user_type_user"] == 1):
     else: 
         return HttpResponseRedirect('/app_gestion_reservations/')
@@ -194,11 +195,16 @@ def reservation(request):
       # We check if the user is already connected
     if getCookieData(request) is not None:
         typeUser = getCookieData(request)["user_type_user"]
+        idUser = getCookieData(request)["id"]
         if typeUser == 1:
-            return render(request, 'reservation/reservation.html', {'reservations': reservations, 'cours': cours, 'ecoles': ecoles })
+            return render(request, 'reservation/reservation.html', {'reservations': reservations, 'cours': cours, 'ecoles': ecoles, 'idUser' : idUser })
         else:
             return HttpResponseRedirect('/app_gestion_reservations/')
         # if(getCookieData(request)["user_type_user"] == 1):
     else: 
         return HttpResponseRedirect('/app_gestion_reservations/')
         
+def delete_reservation(request, reservation_id):
+    reservation = Reservation.objects.get(id=reservation_id)
+    reservation.delete()
+    return HttpResponseRedirect('/app_gestion_reservations/reservation')

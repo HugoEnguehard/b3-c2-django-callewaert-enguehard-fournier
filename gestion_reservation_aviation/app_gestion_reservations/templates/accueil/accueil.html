@@ -36,8 +36,9 @@
       {% else %}
         <section>
           {% for cour in cours %}
+            {% if idUser == cour.id_ecole_id %}
               <div class="school-info">
-                <a href="/app_gestion_reservations/reservation/{{cour.id}}" class="school-info-a">
+                <a href="/app_gestion_reservations/school/{{cour.id_ecole_id}}" class="school-info-a">
                   <h2>{{ cour.cour_nom }}</h2>
                   <div>
                     <p>Du {{cour.cour_date_debut|date:"d/m/Y"}}</p>
@@ -45,6 +46,7 @@
                   </div>
                 </a>
               </div>
+            {% endif %}
           {% endfor %}
         </section>
       {% endif %}

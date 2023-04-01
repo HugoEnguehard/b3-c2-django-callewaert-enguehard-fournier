@@ -23,6 +23,7 @@
     <main>
       <section>
         {% for reservation in reservations %}
+          {% if idUser == reservation.id_user_id %}
             <div class="reservation">
                 <div class ="header-reservation">
                     <h4>Réservation du {{reservation.reservation_date|date:"d/m/Y"}}</h4>
@@ -51,11 +52,15 @@
                 <button class="button-x" onclick="popUpSupResa()">x</button>
                 <h4 style="padding-top: 3%;">Voullez-vous vraiment supprimer la réservation du {{reservation.reservation_date|date:"d/m/Y"}}</h4>
                 <div class="pop-up-button-yn">
-                  <button class="button-yn">Oui</button>
+                  <form method="post" action="{% url 'delete_reservation' reservation.id %}">
+                    {% csrf_token %}
+                    <button class="button-yn" type="submit">Oui</button>
+                  </form>
                   <button class="button-yn">Non</button>
                 </div>
               </div>
             </div>
+          {% endif %}
         {% endfor %}
       </section>
     </main>

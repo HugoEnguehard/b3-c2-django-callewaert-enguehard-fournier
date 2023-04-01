@@ -21,6 +21,7 @@ class Ecole(models.Model):
         }
     
 class User(models.Model):
+    id = models.AutoField(primary_key=True)
     user_nom = models.CharField(max_length=64, null=True)
     user_prenom = models.CharField(max_length=64, null=True)
     user_email = models.CharField(max_length=100, null=True)
@@ -34,6 +35,7 @@ class User(models.Model):
     
     def getAllData(self):
         return {
+            "id" : self.id,
             "user_nom" : self.user_nom,
             "user_prenom" : self.user_prenom,
             "user_email" : self.user_email,

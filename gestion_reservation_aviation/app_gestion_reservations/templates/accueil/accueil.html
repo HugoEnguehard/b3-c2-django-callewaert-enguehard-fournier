@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Titre de la page</title>
+    <title>Accueil</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/accueil.css' %}">
+    <link rel="icon" type="image/png" href="../../static/images/favicon.png" />
   </head>
   <body>
     <header>
@@ -24,7 +25,7 @@
         <section>
           {% for ecole in ecoles %}
               <div class="school-info">
-                <a href="/app_gestion_reservations/school/{{ecole.id}}" class="school-info-a">
+                <a href="/app_gestion_reservations/school/{{ecole.ecole_id}}" class="school-info-a">
                   <h2>{{ ecole.ecole_nom }}</h2>
                   <p>{{ ecole.ecole_adresse }}</p>
                   <p>{{ ecole.ecole_ville }}, {{ ecole.ecole_cp }}</p>
